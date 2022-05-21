@@ -1,3 +1,5 @@
+import { GetStaticProps } from "next"
+import { getUsers } from "../lib/users"
 
 
 export default function Home() {
@@ -6,4 +8,17 @@ export default function Home() {
     <h1>Hello World!!!!</h1>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () =>{
+  const users = await getUsers()
+
+  console.log(users);
+
+  return {
+    props: {
+      users,
+    },
+    revalidate: 5,
+  };
 }
